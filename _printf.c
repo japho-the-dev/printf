@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <"main.h">
+#include "main.h"
 
 /**
  * _printf - custom of the normal printf function
@@ -7,7 +7,7 @@
  *
  * Return: total number of characters in an output
  */
-int _printf(char *format, ...)
+int _printf(const char *format, ...)
 {
 	int p = 0;
 	int total_count = 0;
@@ -53,9 +53,9 @@ int _format_handler (va_list t_args, char current_spec)
 	{
 		total_count += _putchar(va_arg(t_args, int));
 	}
-	else if (spec == 's')
+	else if (current_spec == 's')
 	{
-		total_count += _putchar(va_arg(t_args, char *));
+		total_count += _putchar(va_arg(t_args, int ));
 	}
 	else if (current_spec == 'd' || current_spec == 'i')
 	{
