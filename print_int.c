@@ -1,23 +1,36 @@
-#include <stdio.h>
-/**
- * print_int - print integers
- *@n : input integer
- * Return: count of the integers counted
- */
-int print_int(int n)
-{
-	int count;
+#include "main.h"
 
-	count = 0;
-	if (n < 0)
+/**
+ * print_int - Prints an integer to standard output
+ * @value: The number to be printed
+ *
+ * Return: Length of string printed - 1
+ */
+
+int print_int(int value)
+{
+	int digit, length = 0;
+
+	if (value == 0)
 	{
-		count  += putchar('-');
-		n = -n;
+		length += _putchar('0');
+		return (length);
 	}
-	if (n / 10 != 0)
+	if (value == -2147483648)
 	{
-		count += print_int(n / 10);
+		length += print_str("-2147483648");
+		return (length);
 	}
-	count += putchar(n % 10 + '0');
-	return (count);
+	if (value < 0)
+	{
+		length += _putchar('-');
+		value = -value;
+	}
+	digit = value % 10;
+	value = value / 10;
+
+	if (value)
+		length += print_int(value);
+	length += _putchar(digit + '0');
+	return (length);
 }
