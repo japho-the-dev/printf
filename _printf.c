@@ -19,10 +19,10 @@ int _printf (const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			i++
+			i++;
 				if (format[i] == 'c')
 				{
-					count += _putchar(va_arg(pargs, char));
+					count += _putchar(va_arg(pargs, int));
 				}
 					else if (format[i] == 's')
 					{
