@@ -1,56 +1,74 @@
+#include <stdio.h>
 #include "main.h"
+
 /**
- *_printf - custom of the normal printf function
- *@format: what to be printed
- *Return: count of output
+ * _printf - custom of the normal printf function
+ * @format: output to be printed
+ *
+ * Return: total number of characters in an output
  */
-int _printf (const char *format, ...)
+int _printf(const char *format, ...)
 {
-	int i;
-	int count;
-	char *str;
+	int p = 0;
+	int total_count = 0;
+	va_list t_args;
 
-	va_list(pargs);
-
-	i = 0;
-	count = 0;
-	va_start(pargs, format);
-	while (format && format[i])
+	va_start(t_args, format);
+	if (format == NULL)
 	{
-		if (format[i] == '%')
+		return (-1);
+	}
+
+	while (format[p])
+	{
+		if (format[p] != '%')
+			total_count += _putchar(format[p]);
+		else
 		{
-			i++;
-				if (format[i] == 'c')
-				{
-					count += _putchar(va_arg(pargs, int));
-				}
-					else if (format[i] == 's')
-					{
-						str = va_arg(pargs, char *);
-						if (str == NULL)
-						{
-							return (-1);
-						}
-						while (*str != '\0')
-						{
-							count += _putchar(*str++);
-						}
-					}
-				else if (format[i] == '%')
-				{
-					count += _putchar('%');
-				}
-				else if ((format[i] == 'd') || (format[i] == 'i'))
-				{
-					count += print_int(va_arg(pargs, int));
-				}
+			p++;
+			if (!format[p])
+				return (-1);
+			total_count += _format_handler(t_args, format[p]);
 		}
-				else
-				{
-					count += _putchar(format[i]);
-				}
-					i++;
-		}
-			va_end(pargs);
-			return (count);
+		p++;
+	}
+	va_end(t_args);
+
+	return (total_count);
+}
+/**
+ *_format_handler - Determines what is accepted by _printf function
+ *
+ * @t_args: List of arguments supplied
+ * @current_spec: whatever is to be printed
+ *
+ * Return: the total size or length of the arguments handled
+ */
+int _format_handler (va_list t_args, char current_spec)
+{
+	int total_count = 0;
+
+	if (current_spec == 'c')
+	{
+		total_count += _putchar(va_arg(t_args, int));
+	}
+	else if (current_spec == 's')
+	{
+		total_count += print_str(va_arg(t_args, char *));
+	}
+	else if (current_spec == 'd' || current_spec == 'i')
+	{
+		total_count += print_int(va_arg(t_args, int));
+	}
+	else if (current_spec == '%')
+	{
+		total_count += _putchar('%');
+	}
+	else
+	{
+		total_count += _putchar('%');
+		total_count += _putchar(current_spec);
+	}
+
+	return (total_count);
 }
