@@ -9,5 +9,4 @@ int _putchar(char c);
 int _printf(const char *format, ...);
 int print_int(int value);
 int _format_handler (va_list t_args, char current_spec);
-int print_binary(va_list args);
 #endif
