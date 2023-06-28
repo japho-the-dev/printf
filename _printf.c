@@ -60,10 +60,6 @@ int _format_handler (va_list t_args, char current_spec)
 	{
 		total_count += print_int(va_arg(t_args, int));
 	}
-	else if (current_spec == 'b')
-	{
-		total_count += print_binary(va_arg(t_args, unsigned int));
-	}
 	else if (current_spec == '%')
 	{
 		total_count += _putchar('%');
