@@ -11,9 +11,6 @@ int print_binary(va_list args)
 {
         unsigned int num = va_arg(args, unsigned int);
         int count = 0;
-	int i = 0;
-	int j = 0;
-	int binary_digits[32];
 
         if (num == 0)
         {
@@ -21,6 +18,9 @@ int print_binary(va_list args)
         }
         else
         {
+                int binary_digits[32];
+                int i = 0;
+
                 while (num > 0)
                 {
                         binary_digits[i] = num % 2;
@@ -28,7 +28,7 @@ int print_binary(va_list args)
                         i++;
                 }
 
-                for (j = i - 1; j >= 0; j--)
+                for (int j = i - 1; j >= 0; j--)
                 {
                         count += _putchar(binary_digits[j] + '0');
                 }
